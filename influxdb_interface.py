@@ -15,10 +15,10 @@ REFERENCES:
     https://github.com/influxdata/influxdb-python
 '''
 
-
 class Influx():
     def __init__(self):
         logging.basicConfig(level=logging.DEBUG)
+
         self.user = config('INFLUX_USER')
         self.password = config('INFLUX_PW')
         self.host = config('INFLUX_HOST')
