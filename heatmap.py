@@ -3,6 +3,9 @@ import utility as util
 from datetime import datetime
 import numpy as np
 
+import seaborn as sns
+from matplotlib import pyplot as plt, image as mpimg
+
 GRID = np.zeros((10,20)).astype(int)
 
 
@@ -30,6 +33,14 @@ def generate_linklab_heatmap(start_datetime, end_datetime
 					entry_num = len(entry)
 					GRID[n//20][n%20] += entry_num
 
+	data = pd.DataFrame(GRID)
+	plt.figure(figsize=(20, 15))
+	map_img = mpimg.imread('./img/lll_grid.png')
+	heatmap = sns.heatmap(grid_df, linewidths=1, cmap="Reds", annot=True, fmt="d", alpha=0.8, zorder=2)
+	heatmap.imshow(map_img, aspect=heatmap.get_aspect(), extent=heatmap.get_xlim()+heatmap.get_ylim(), zorder=1)
+	plt.title(f"LinkLab Heatmap")
+	plt.show()
+
 
 
 
@@ -44,5 +55,6 @@ if __name__ == "__main__":
 	'Supply voltage availability', 'Contact', 'Concentration_ppm', 'H-Sensor']
 
 	generate_linklab_heatmap(s, e, fields, 0)
+
 	print(GRID)
 	
